@@ -22,6 +22,6 @@ class FromHHru(FromAPI):
 
         """Получение списка вакансий в формате json"""
 
-        response = requests.get(self.url_get, params={'text': keyword, 'area': '113', 'per_page': 100})
+        response = requests.get(self._url_get, params={'text': keyword, 'area': '113', 'per_page': 100})
         vacancies = response.json()['items']
         return vacancies

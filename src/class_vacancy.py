@@ -15,6 +15,11 @@ class FromVacancy:
                 f'Требования: {self.requirement}\n'
                 f'Ссылка на вакансию: <{self.url}>\n')
 
+    def _validate_salary(self, salary):
+        if isinstance(salary, dict) and 'to' in salary:
+            return True
+        return False
+
     def __gt__(self, other):
 
         """Метод сравнения вакансий между собой по зарплате и валидации данных по зарплате"""

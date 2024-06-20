@@ -14,9 +14,6 @@ def interface():
     fv = ListVacancies()
     fv1 = fv.save_vacancies(vacancies)
 
-    name_vac = input('Введите название вакансии: \n')
-    fv3 = fv.add_vacancy(name_vac)
-
     name_criterion = input('Введите критерий для отбора вакансий: \n')
     fv4 = fv.get_data(name_criterion)
 
