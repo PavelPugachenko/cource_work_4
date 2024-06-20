@@ -16,7 +16,7 @@ class FromHHru(FromAPI):
     """Класс для подключения к API и получения вакансий"""
 
     def __init__(self, url_get='https://api.hh.ru/vacancies'):
-        self.url_get = url_get
+        self._url_get = url_get
 
     def get_vacancies(self, keyword):
 
