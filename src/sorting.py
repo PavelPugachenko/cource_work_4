@@ -1,22 +1,20 @@
 from src.class_vacancy import FromVacancy
 from src.translation import vac_user
 
+
 user_vac = vac_user()
 
 
-def sorting(n):
-
-    """Сортируем и получаем запрошенное количество вакансий для вывода по зарплате"""
-
-    sorted_list = sorted(user_vac, key=lambda x: x['salary'], reverse=True)
-    sorted_vac = sorted_list[:n]
+def sorting(vacancies, n: int):
     sort_vac = []
-    for vac in sorted_vac:
-        if not vac["salary"]:
-            vac["salary"] = 0
-        else:
-            if vac["salary"] is None:
-                vac["salary"] = 0
-        sort_vac.append(FromVacancy(vac['name'], vac['salary'], vac['url'], vac["snippet"]['requirement']))
-    print(sort_vac)
-    return sort_vac
+    for vac in vacancies:
+        try:
+            sort_vac.append(FromVacancy(vac['name'], vac['salary'], vac['url'], vac["snippet"]['requirement']))
+        except TypeError as e:
+            print(f"Ошибка при обработке вакансии: {vac}")
+            print(e)
+            continue
+
+    # Сортируем по зарплате "to" и выдаем top n
+    sorted_vacancies = sorted(sort_vac, key=lambda x: x.salary["to"], reverse=True)
+    return sorted_vacancies[:n]

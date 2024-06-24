@@ -9,27 +9,19 @@ def vac_user():
 
     user_vac = []
     for vac in vacancies:
-        if not vac["salary"]:
-            vac["salary"] = 0
+        if not vac.get("salary"):
+            vac["salary"] = {"from": 0, "to": 0, "currency": ""}
         else:
-            if vac["salary"] is None:
-                vac["salary"] = 0
+            if vac["salary"] is None or not isinstance(vac["salary"], dict):
+                vac["salary"] = {"from": 0, "to": 0, "currency": ""}
             else:
-                if vac["salary"]["currency"]:
-                    vac["currency"] = vac["salary"]["currency"]
-                else:
-                    vac["currency"] = "Валюта не определена"
+                if vac["salary"]["currency"] is None:
+                    vac["salary"]["currency"] = "Валюта не определена"
 
-                if vac["salary"]["from"] is None and vac["salary"]["to"] is None:
-                    vac["salary"] = 0
-                else:
-                    if vac["salary"]["from"] is None and vac["salary"]["to"] is not None:
-                        vac["salary"] = vac["salary"]["to"]
-                    elif vac["salary"]["from"] is not None and vac["salary"]["to"] is None:
-                        vac["salary"] = vac["salary"]["from"]
-                    else:
-                        if vac["salary"]["from"] is not None and vac["salary"]["to"] is not None:
-                            vac["salary"] = vac["salary"]["to"]
+                if vac["salary"]["from"] is None:
+                    vac["salary"]["from"] = 0
+                if vac["salary"]["to"] is None:
+                    vac["salary"]["to"] = 0
 
         vac["snippet"]["requirement"] = vac["snippet"].get("requirement", "Информация отсутствует")
         user_vac.append(vac)

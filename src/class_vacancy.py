@@ -1,17 +1,22 @@
 class FromVacancy:
-
-    def __init__(self, name, salary, currency, url, requirement='Информация отсутствует'):
+    def __init__(self, name: str, salary: dict, url: str, requirement: str):
+        if not isinstance(salary, dict):
+            raise TypeError("Salary must be a dictionary")
         self.name = name
         self.salary = salary
-        self.currency = currency
         self.url = url
         self.requirement = requirement
 
+    def __str__(self):
+        return (
+            f"Название: {self.name}\n"
+            f"Зарплата: от {self.salary['from']} до {self.salary['to']} {self.salary['currency']}\n"
+            f"Ссылка: {self.url}\n"
+            f"Требования: {self.requirement}\n"
+        )
+
     def __repr__(self):
-        return (f'Название вакансии: {self.name}\n'
-                f'Зарплата: {self.salary} {self.currency}\n'
-                f'Требования: {self.requirement}\n'
-                f'Ссылка на вакансию: <{self.url}>\n')
+        return f"Vacancy({self.name}, {self.salary}, {self.url}, {self.requirement})"
 
     def __gt__(self, other):
         return self.salary['to'] > other.salary['to']
